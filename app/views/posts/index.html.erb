@@ -2,7 +2,11 @@
 
 <div id="posts">
   <% @posts.each do |post| %>
-    <%= post.user.name %> <br>
+    <% if user_signed_in? %>
+      <%= post.user.name %><br>
+    <% else %>
+      <div>Anonymous</div>
+    <% end %>
     <%= post.title %> <br>
     <%= post.body %><br><br>
   <% end %>
