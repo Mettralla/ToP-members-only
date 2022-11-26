@@ -1,15 +1,40 @@
-<h1>Post</h1>
+<div class="container">
 
-<div id="posts">
-  <% @posts.each do |post| %>
-    <% if user_signed_in? %>
-      <%= post.user.name %><br>
-    <% else %>
-      <div>Anonymous</div>
-    <% end %>
-    <%= post.title %> <br>
-    <%= post.body %><br><br>
-  <% end %>
+  <div class="navbar">
+    <%= link_to "Members-Only!", root_path, class: 'brand' %>
+
+    <div class="buttons">
+      <% if user_signed_in? %>
+        <div class="button post_btn">Current User: <%= current_user.name %></div>
+      <% else %>
+        <div class="button"><%= link_to "Login", new_user_session_path, class: 'post_btn' %></div>
+      <% end %>
+      <div class="button"><%= link_to "New post", new_post_path, class: 'post_btn' %></div>
+    </div>
+  </div>
+
+  <div class="main_container">
+    <div class="feedback">
+      <h1>Feed</h1>
+      <div id="posts">
+        <% @posts.each do |post| %>
+          <div class="post">
+            <div class="post_bar">
+              <div class="post_author">
+                <% if user_signed_in? %>
+                  <%= post.user.name %><br>
+                <% else %>
+                  <div>Anonymous</div>
+                <% end %>
+              </div>
+              <div class="post_title">Title: <%= post.title %></div>
+            </div>
+            <div class="post_body"><%= post.body %></div>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+  
+
 </div>
-
-<%= link_to "New post", new_post_path %>
